@@ -18,7 +18,10 @@ export default function MaterialTableDemo() {
   // / ####################################### Colums lay out ###############################################
   const [state, setState] = React.useState({
     columns: [
-      { title: "Name of Task", field: "title" },
+      {
+        title: "Name of Task",
+        field: "title",
+      },
       // ####################################### Date ###############################################
       {
         title: "Date",
@@ -172,14 +175,18 @@ export default function MaterialTableDemo() {
     GETData().then((res) => {
       setState((prevState) => {
         const data = [...prevState.data];
-        data.push(...res);
+        if (res === undefined) {
+          globalActions.setError("data undefined");
+        } else {
+          data.push(...res);
+        }
         return { ...prevState, data };
       });
     });
   }, []);
 
   return (
-    <div>
+    <div style={{ overflow: "visible" }}>
       {/* exportFileName?:
     | string
     | ((columns: Column<RowData>, data: string[][]) => string);
@@ -188,12 +195,13 @@ export default function MaterialTableDemo() {
       <MaterialTable
         // onAdd={(e) => (!e.title ? console.log("i am null") : null)}
         // emptyValue={(e) => console.log(e, " this is emptyValue")}
+        style={{}}
         options={{
           toolbar: true,
           selection: true,
           pageSizeOptions: [5, 10, 20, 30, 50, 100],
           pageSize: 5,
-          grouping: true,
+          // grouping: true,
           addRowPosition: "first",
           sorting: true,
           exportButton: true,
@@ -215,6 +223,7 @@ export default function MaterialTableDemo() {
                 const data = [...prevState.data];
                 // assings the _id recived from mongoDB server to the object.
                 //adds id from server to iteme on client
+                newData.email = globalState.userData.email;
                 POSTData(newData).then((res) => (newData._id = res._id));
                 console.log(newData);
                 if (newData.title === undefined) {

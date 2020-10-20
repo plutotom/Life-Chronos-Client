@@ -13,8 +13,8 @@ export const changeDuration = (store, value) => {
 };
 
 // Gets the users entreys when app boots up
-export const entrysDefaultState = async (store) => {
-  let data = await GETData().then((res) => {
+export const entrysDefaultState = async (store, value) => {
+  await GETData().then((res) => {
     store.setState((store.state.entrys = [...res]));
   });
 };
@@ -33,7 +33,7 @@ export const setUpdateEntryState = (store, newValue) => {
 
   store.setState((store.state.entrys = finalObj));
 };
-
+// adds new entry to state from calendar view.
 export const calendarApendEntry = (store, newValue) => {
   console.log("running calendarApendEntry", newValue);
 
@@ -42,7 +42,7 @@ export const calendarApendEntry = (store, newValue) => {
   console.log(typeof temp);
   store.setState((store.state.entrys = temp));
 };
-
+// deletes entry from state when calendar view is used
 export const calendarDeleteEntry = (store, id) => {
   let temp = store.state.entrys;
 
@@ -53,4 +53,22 @@ export const calendarDeleteEntry = (store, id) => {
   });
   console.log(temp);
   store.setState((store.state.entrys = temp));
+};
+
+// Sets userData and sets auth to true
+export const setAuth = (store, userData) => {
+  store.setState((store.state.userData = userData));
+  store.setState((store.state.auth = true));
+};
+// logs user out, removes userData, and sets auth false
+export const logout = (store, userData) => {
+  store.setState((store.state.userData = ""));
+  store.setState((store.state.auth = false));
+  console.log("logging you out");
+};
+
+// if error anywhere then use this to display error.
+export const setError = (store, value) => {
+  store.setState((store.state.errorMessage = value));
+  store.setState((store.state.errorState = true));
 };

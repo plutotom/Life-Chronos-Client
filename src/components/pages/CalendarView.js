@@ -95,6 +95,7 @@ export default function EntreyInput() {
         event_duration: duration,
         event_end: moment(selectInfo.end).format("MM/D/YYYY hh:mm a"),
         date: moment().format("MM/D/YYYY"),
+        email: globalState.userData.email,
       };
       await POSTData(obj).then((res) => {
         calendarApi.addEvent({
@@ -146,29 +147,31 @@ export default function EntreyInput() {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Enter Title</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Put a name to what you have been doing.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="eventTitle"
-              label="Title Event"
-              fullWidth
-              onChange={(e) => {
-                setInputValue(e.target.value);
-              }}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} color="primary">
-              Submit
-            </Button>
-          </DialogActions>
+          <form onSubmit={(e) => e.preventDefault() & handleSubmit()}>
+            <DialogContent>
+              <DialogContentText>
+                Put a name to what you have been doing.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="eventTitle"
+                label="Title Event"
+                fullWidth
+                onChange={(e) => {
+                  setInputValue(e.target.value);
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </form>
         </Dialog>
       </div>
       {/* {this.renderSidebar()} */}

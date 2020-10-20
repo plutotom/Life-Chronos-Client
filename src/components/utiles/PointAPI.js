@@ -1,23 +1,43 @@
 import axios from "axios";
-//========================GET============================
+import { initialState } from "../GlobleState/store";
+//========================/GetUserEvents============================
 export async function GETData() {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${initialState.userData.token}`,
+      "Content-Type": "application/json",
+    },
+  };
+  var data = {
+    email: initialState.userData.email,
+  };
   try {
-    const res = await axios.get("http://localhost:5000/uploadDatapoint");
+    const res = await axios.post(
+      "http://localhost:5000/GetUserEvents",
+      { email: initialState.userData.email },
+      config
+    );
 
-    // console.log(res.data.count);
-    // return await res.data;
+    // console.log(initialState.userData.email, res.data.data);
+
     return res.data.data;
   } catch (err) {
-    console.log(err);
+    console.log(
+      err.message,
+      "this is error for getting data",
+      initialState.userData.email
+    );
   }
 }
 //========================POST============================
 export async function POSTData(dataincome) {
   const config = {
     headers: {
+      Authorization: `Bearer ${initialState.userData.token}`,
       "Content-Type": "application/json",
     },
   };
+  console.log(dataincome, "dataingcome");
   try {
     const res = await axios.post(
       "http://localhost:5000/uploadDatapoint",
@@ -29,6 +49,7 @@ export async function POSTData(dataincome) {
     return await res.data.data;
   } catch (err) {
     console.log(err.response.data.error);
+    console.log(err.message);
     return err.response.data;
   }
 }
@@ -36,6 +57,7 @@ export async function POSTData(dataincome) {
 export async function PUTData(id, body) {
   const headers = {
     headers: {
+      Authorization: `Bearer ${initialState.userData.token}`,
       "Content-Type": "application/json",
     },
   };
@@ -53,9 +75,15 @@ export async function PUTData(id, body) {
 }
 //======================DELETE==============================
 export async function DELETEData(id) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${initialState.userData.token}`,
+    },
+  };
   try {
     const res = await axios.delete(
-      `http://localhost:5000/uploadDatapoint/${id}`
+      `http://localhost:5000/uploadDatapoint/${id}`,
+      config
     );
     console.log(res.data);
     return res.data;
@@ -66,8 +94,13 @@ export async function DELETEData(id) {
 
 //========================GET-Settings============================
 export async function GETSettings() {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${initialState.userData.token}`,
+    },
+  };
   try {
-    const res = await axios.get("http://localhost:5000/settings");
+    const res = await axios.get("http://localhost:5000/settings", config);
 
     // console.log(res.data.count);
     // return await res.data;
@@ -83,6 +116,7 @@ export async function PUTSettings(defaultDuration) {
   const headers = {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${initialState.userData.token}`,
     },
   };
   try {

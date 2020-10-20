@@ -15,14 +15,14 @@ export default function Settings(props) {
       <TextField
         id="default-duration"
         label="Default Time Spent"
-        value={globalState.defaultDuration}
+        value={globalState.userData.settings}
         onChange={(e) => globalActions.changeDuration(e.target.value)}
       />
       <Button
         variant="contained"
         onClick={(e) => {
           e.preventDefault();
-          let defaultDuration = globalState.defaultDuration;
+          let defaultDuration = globalState.userData.settings;
           PUTSettings({ defaultDuration });
         }}
       >

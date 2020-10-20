@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import useGlobal from "../GlobleState/store";
 
 // icons: https://material-ui.com/components/material-icons/
 import HomeIcon from "@material-ui/icons/Home";
@@ -26,7 +26,7 @@ import InputIcon from "@material-ui/icons/Input";
 export default function MiniDrawerSide(props) {
   const [Open, setOpen] = React.useState(false);
   const classes = useStyles();
-
+  const [globalState, globalActions] = useGlobal();
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -60,7 +60,7 @@ export default function MiniDrawerSide(props) {
                 </IconButton>
               </ListItemIcon>
             </ListItem>
-            <Link to="/internalHomePage">
+            <Link to="/HomePage">
               <ListItem button key="home">
                 <ListItemIcon>
                   <HomeIcon className={classes.icons} />
@@ -121,28 +121,33 @@ export default function MiniDrawerSide(props) {
                 backgroundColor: "#d9833c",
               }}
             >
-              <IconButton
-                style={{
-                  paddingLeft: "30px",
-                }}
-                color="inherit"
-                aria-label="open drawer"
-                // onClick={() => logout()}
-                edge="start"
+              <Link
+                to="/outterHomePage"
+                style={{ textDecoration: "none", color: "black" }}
               >
-                <ExitToAppIcon />
-                <p
+                <IconButton
                   style={{
-                    paddingLeft: "28px",
-                    margin: 0,
-                    fontSize: "20px",
+                    paddingLeft: "30px",
                   }}
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={() => globalActions.logout()}
+                  edge="start"
                 >
-                  Logout
-                </p>
-              </IconButton>
+                  <ExitToAppIcon />
+                  <p
+                    style={{
+                      paddingLeft: "28px",
+                      margin: 0,
+                      fontSize: "20px",
+                    }}
+                  >
+                    Logout
+                  </p>
+                </IconButton>
+              </Link>
 
-              <IconButton
+              {/* <IconButton
                 style={{
                   paddingLeft: "30px",
                 }}
@@ -161,7 +166,7 @@ export default function MiniDrawerSide(props) {
                 >
                   Login
                 </p>
-              </IconButton>
+              </IconButton> */}
             </div>
           </div>
         </div>
