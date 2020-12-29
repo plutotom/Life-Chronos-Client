@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useGlobal from "../GlobleState/store";
 import { POSTLogin } from "../utiles/HandleUserAPI";
 import TopNavBar from "../NavBar/TopNavBar";
 import { Link } from "react-router-dom";
+import ls from 'local-storage'
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -53,6 +54,7 @@ const LoginPage = () => {
   const [globalState, globalActions] = useGlobal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [temp, setTemp] = useState("defautl temp")
   // const email = React.createRef(null);
   // const password = React.createRef(null);
 
@@ -60,10 +62,12 @@ const LoginPage = () => {
     console.log("loggin you in", email, password);
     POSTLogin(email, password).then(async (res) =>
       res.data.success
-        ? globalActions.setAuth(res.data.data) &
-          //this is getting state from server to set up the settings that this user
+        ? globalActions.setAuth(res.data.data) &           
+        //this is getting state from server to set up the settings that this user
           globalActions.settingDefaultState() &
-          globalActions.entrysDefaultState()
+          globalActions.entrysDefaultState() &
+          ls.set('user', res.data.data) &
+          console.log(res.data.data)
         : globalActions.setError(res.data.message)
     );
   };
@@ -74,6 +78,24 @@ const LoginPage = () => {
     setPassword(e.target.value);
   };
   const classes = useStyles();
+
+useEffect(() => {
+ console.log("running check for user data")
+ const loggedInUser = ls.get("user");
+ console.log(ls.get("user"))
+ setTemp(ls.get("user"))
+ loggedInUser ? console.log("we have it") : console.log("we do not have it")
+
+//  loggedInUser ? console.log("we have the data :)") & 
+// //  globalActions.setAuth(loggedInUser) &
+// console.log(loggedInUser) &  
+//  globalActions.settingDefaultState() & 
+//  globalActions.entrysDefaultState()
+//   : console.log("does not have the use data" )
+ 
+ 
+}, [])
+
   return (
     <div>
       <TopNavBar />
@@ -94,6 +116,7 @@ const LoginPage = () => {
       </div> */}
 
       <Container component="main" maxWidth="xs">
+        <div>{typeof temp}</div>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>

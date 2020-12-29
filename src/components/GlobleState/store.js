@@ -10,7 +10,6 @@ export const initialState = {
   errorMessage: "",
   errorState: false,
 };
-
 const useGlobal = useGlobalHook(React, initialState, actions);
 
 export default useGlobal;
