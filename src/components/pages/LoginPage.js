@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useGlobal from "../GlobleState/store";
 import { POSTLogin } from "../utiles/HandleUserAPI";
 import TopNavBar from "../NavBar/TopNavBar";
 import { Link } from "react-router-dom";
-import ls from 'local-storage'
+import ls from "local-storage";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -51,22 +51,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginPage = () => {
+  // const [globalActions] = useGlobal();
   const [globalState, globalActions] = useGlobal();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [temp, setTemp] = useState("defautl temp")
+  const [temp, setTemp] = useState("defautl temp");
   // const email = React.createRef(null);
   // const password = React.createRef(null);
 
   const handleLogin = () => {
     console.log("loggin you in", email, password);
+    // sending email and password to back end, back end checks with JWT token (maybe, token may be broken rn)
+    // Ones auth is done back end returns data from mongoDB data base for that user.
     POSTLogin(email, password).then(async (res) =>
-      res.data.success
-        ? globalActions.setAuth(res.data.data) &           
-        //this is getting state from server to set up the settings that this user
+      res.data.success // if back end returns success == true
+        ? globalActions.setAuth(res.data.data) & // getting user data in to local global state to be used latter.
+          //this is getting state from server to set up the settings that this user
           globalActions.settingDefaultState() &
           globalActions.entrysDefaultState() &
-          ls.set('user', res.data.data) &
+          ls.set("user", res.data.data) &
           console.log(res.data.data)
         : globalActions.setError(res.data.message)
     );
@@ -79,22 +82,34 @@ const LoginPage = () => {
   };
   const classes = useStyles();
 
-useEffect(() => {
- console.log("running check for user data")
- const loggedInUser = ls.get("user");
- console.log(ls.get("user"))
- setTemp(ls.get("user"))
- loggedInUser ? console.log("we have it") : console.log("we do not have it")
+  useEffect(() => {
+    console.log("running check for user data");
+    const loggedInUser = ls.get("user");
+    console.log(ls.get("user"));
+    setTemp(ls.get("user"));
+    loggedInUser
+      ? console.log("we have it", loggedInUser.email, loggedInUser.token)
+      : console.log("we do not have it");
 
-//  loggedInUser ? console.log("we have the data :)") & 
-// //  globalActions.setAuth(loggedInUser) &
-// console.log(loggedInUser) &  
-//  globalActions.settingDefaultState() & 
-//  globalActions.entrysDefaultState()
-//   : console.log("does not have the use data" )
- 
- 
-}, [])
+    // POSTTokenLogin(loggedInUser.email, loggedInUser.token).then(async (res) =>
+    //   res.data.success // if back end returns success == true
+    //     ? globalActions.setAuth(res.data.data) & // getting user data in to local global state to be used latter.
+    //       //this is getting state from server to set up the settings that this user
+    //       globalActions.settingDefaultState() &
+    //       globalActions.entrysDefaultState() &
+    //       ls.set("user", res.data.data) &
+    //       console.log(res.data.data)
+    //     : globalActions.setError(res.data.message)
+    // );
+
+    // loggedInUser
+    //   ? console.log("we have the data :)") &
+    //     //  globalActions.setAuth(loggedInUser) &
+    //     console.log(loggedInUser) &
+    //     globalActions.settingDefaultState() &
+    //     globalActions.entrysDefaultState()
+    //   : console.log("does not have the use data");
+  }, []);
 
   return (
     <div>

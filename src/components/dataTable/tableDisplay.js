@@ -13,14 +13,14 @@ import MomentUtils from "@date-io/moment";
 import useGlobal from "../GlobleState/store";
 import { GETData, POSTData, DELETEData, PUTData } from "../utiles/PointAPI";
 
-export default function MaterialTableDemo() {
+export default function TableDisplay() {
   const [globalState, globalActions] = useGlobal();
   // / ####################################### Colums lay out ###############################################
   const [state, setState] = React.useState({
     columns: [
       {
         title: "Name of Task",
-        field: "title",
+        field: "Title",
       },
       // ####################################### Date ###############################################
       {

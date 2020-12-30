@@ -8,9 +8,9 @@ export async function GETData() {
       "Content-Type": "application/json",
     },
   };
-  var data = {
-    email: initialState.userData.email,
-  };
+  // var data = {
+  //   email: initialState.userData.email,
+  // };
   try {
     const res = await axios.post(
       "http://localhost:5000/GetUserEvents",
@@ -54,7 +54,7 @@ export async function POSTData(dataincome) {
   }
 }
 //====================PUT================================
-export async function PUTData(id, body) {
+export async function PUTData(id, body) { // this is updating a event with a new body. 
   const headers = {
     headers: {
       Authorization: `Bearer ${initialState.userData.token}`,
