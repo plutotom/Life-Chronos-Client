@@ -21,7 +21,7 @@ export async function POSTLogin(email, password) {
     console.log("res");
     return res;
   } catch (err) {
-    console.log("err");
+    console.log("err", err.response);
     return err.response;
   }
 }

@@ -56,7 +56,8 @@
     "react-scripts": "3.4.1",
     "react-text-mask": "^5.4.3",
     "react-use-auth": "^0.7.5",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "yarn": "^1.22.10"
   },
   "main": "public/electron.js",
   "eslintConfig": {
