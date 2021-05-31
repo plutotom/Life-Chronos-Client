@@ -5,7 +5,7 @@ Life-Chronos is a tool to recored activities you have done though out the day an
 Life Chronos is built with React.js on the front end, Express.js as a API to handle authentication using JWTs, and MongoDB as a data base.
 
 - Map of the process of data in Life-Chronos
-  ![image:(https://github.com/plutotom/Life-Chronos-Client/blob/master/assets/Life-Chronos-miro-outline.png])
+![image](https://github.com/plutotom/Life-Chronos-Client/blob/master/assets/Life-Chronos-miro-outline.png)
 - Add items and edit them with a convenient calendar view.
   ![image:https://github.com/plutotom/Life-Chronos-Client/blob/master/assets/Life-Chronos-calender.gif]
 - Add items with a calendar then edit them in the table viewer.
