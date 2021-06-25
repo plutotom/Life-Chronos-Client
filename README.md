@@ -17,7 +17,7 @@ Life Chronos is built with React.js on the front end, Express.js as a API to han
 
 ## Getting Started
 
-1. `git pull life chronos`
+1. `git clone https://github.com/plutotom/Life-Chronos-Client.git`
 2. `cd Life-Chronos-Client`
 3. `npm install`
 4. `npm start // For Electron & React web`
