@@ -27,7 +27,7 @@ Life Chronos is built with React.js on the front end, Express.js as a API to han
 
 ## Prerequisites
 
-- Life-Chronos-Client requires the Life-Chronos-API to run and connect to a mongoDB data base. This can be found here: [Life Chronos-API](https://github.com/plutotom/Life-Chronos-API)
+- Life-Chronos-Client requires the Life-Chronos-API to run and connect to a mongoDB data base. This can be found here: [Life Chronos-API](https://github.com/plutotom/Life-Chronos-API){:target="_blank"}
 
 ## Built With
 
